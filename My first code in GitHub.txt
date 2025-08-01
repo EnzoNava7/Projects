@@ -1,0 +1,58 @@
+import random
+
+print("Bom dia, você está interessado em apostar um poquinho? s para sim n para não")
+escolha = input("s/n: ")
+
+if escolha == "s":
+    print("ok, vamos começar")
+    
+    saldo = 100 
+    print(f"\nSeu saldo inicial é: R${saldo}")
+    
+    while saldo > 0:
+        aposta = int(input("\nQuanto você quer apostar? (Digite 0 para sair) "))
+        
+        if aposta == 0:
+            print(f"Você saiu com R${saldo}. Até mais!")
+            break
+        elif aposta > saldo:
+            print("Você não tem saldo suficiente!")
+            continue
+        
+        escolha_jogo = input("Escolha um jogo: (1) para Roleta (2) para Pedra, Papel e Tesoura: ")
+        
+        if escolha_jogo == "1":
+            palpite = int(input("Digite um número de 1 a 10: "))
+            roleta = random.randint(1, 10)
+            
+            if palpite == roleta:
+                saldo += aposta * 2
+                print(f"Acertou! Número sorteado: {roleta}. Seu saldo agora é: R${saldo}")
+            else:
+                saldo -= aposta
+                print(f"Errou! Número sorteado: {roleta}. Seu saldo agora é: R${saldo}")
+                
+        elif escolha_jogo == "2":
+            print("\n--- Pedra, Papel e Tesoura ---")
+            print("1 - Pedra\n2 - Papel\n3 - Tesoura")
+            jogador = int(input("Escolha (1-3): "))
+            computador = random.randint(1, 3)
+            
+            if jogador == computador:
+                print("Empate! Nada muda no seu saldo.")
+            elif (jogador == 1 and computador == 3) or (jogador == 2 and computador == 1) or (jogador == 3 and computador == 2):
+                saldo += aposta
+                print(f"Você ganhou! +R${aposta}. Saldo: R${saldo}")
+            else:
+                saldo -= aposta
+                print(f"Você perdeu! -R${aposta}. Saldo: R${saldo}")
+        else:
+            print("Opção inválida! Escolha 1 ou 2.")
+
+    if saldo <= 0:
+        print("Você ficou sem saldo! Fim de jogo.")
+
+elif escolha == "n":
+    print("Então vaza!")
+else:
+    print("Opção inválida!")
